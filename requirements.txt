@@ -1,0 +1,4 @@
+Flask==2.3.2
+gunicorn==20.0.4
+Pillow==9.2.0
+torch==2.0.1
