@@ -1,7 +1,7 @@
 import requests
 
 # Set the API endpoint URL
-api_endpoint = 'https://yolo-production.up.railway.app//detection'
+api_endpoint = 'https://yolo-production.up.railway.app/detection'
 # api_endpoint = 'http://localhost:5000/detection'
 
 # Load the image file
