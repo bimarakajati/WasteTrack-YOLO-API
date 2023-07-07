@@ -3,8 +3,10 @@ from PIL import Image
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
-
 DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
+
+# Define your model and tokenizer here
+model = torch.hub.load('yolov5', 'custom', path='model/model.pt', source='local')
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -45,7 +47,7 @@ def predict():
         gambar = {'image': img_savename}
 
         hasil = results.pandas().xyxy[0].to_dict(orient='records')
-        hasil.insert(0, gambar)
+        # hasil.insert(0, gambar)
         return hasil
 
 if __name__ == "__main__":
@@ -53,5 +55,4 @@ if __name__ == "__main__":
     parser.add_argument("--port", default=5000, type=int, help="port number")
     args = parser.parse_args()
 
-    model = torch.hub.load('yolov5', 'custom', path='model/model.pt', source='local')
-    app.run(port=args.port, debug=True)  # debug=True causes Restarting with stat
+    app.run(port=args.port)  # debug=True causes Restarting with stat
