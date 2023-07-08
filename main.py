@@ -45,7 +45,7 @@ def predict():
         gambar = {'image': img_savename}
 
         hasil = results.pandas().xyxy[0].to_dict(orient='records')
-        # hasil.insert(0, gambar)
+        hasil.insert(0, gambar)
         return hasil
 
 if __name__ == "__main__":
@@ -53,4 +53,6 @@ if __name__ == "__main__":
     parser.add_argument("--port", default=5000, type=int, help="port number")
     args = parser.parse_args()
     model = torch.hub.load('yolov5', 'custom', path='model.pt', source='local')
+  
+    model.eval()
     app.run(port=args.port)  # debug=True causes Restarting with stat
