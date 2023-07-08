@@ -52,7 +52,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
     parser.add_argument("--port", default=5000, type=int, help="port number")
     args = parser.parse_args()
-    model = torch.hub.load('yolov5', 'custom', path='model.pt', source='local')
+    model = torch.hub.load('yolov5', 'custom', path='model/model.pt', source='local')
   
     model.eval()
     app.run(port=args.port)  # debug=True causes Restarting with stat
