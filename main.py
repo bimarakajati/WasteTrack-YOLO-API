@@ -1,14 +1,9 @@
-import argparse, datetime, io, os, torch
+import argparse, datetime, io, torch
 from PIL import Image
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
-current_dir = os.getcwd()
-yolo_dir = f'{current_dir}/yolov5'
-print(yolo_dir)
-model_dir = f'{current_dir}/model/model.pt'
-print(model_dir)
-model = torch.hub.load(yolo_dir, 'custom', path=model_dir, source='local', force_reload=True, autoshape=True)
+
 DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
 
 @app.route("/", methods=["GET", "POST"])
@@ -59,4 +54,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
     parser.add_argument("--port", default=5000, type=int, help="port number")
     args = parser.parse_args()
-    app.run(port=args.port)  # debug=True causes Restarting with stat
+    model = torch.hub.load('yolov5', 'custom', path='model/model.pt', source='local')
+    app.run(host='0.0.0.0', port=args.port)
