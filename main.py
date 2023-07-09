@@ -1,9 +1,10 @@
-import argparse, datetime, io, torch
+import argparse, datetime, io, os, torch
 from PIL import Image
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
-model = torch.hub.load('WasteTrack-YOLO-API/yolov5', 'custom', path='WasteTrack-YOLO-API/model/model.pt', source='local', force_reload=True, autoshape=True)
+current_dir = os.getcwd()
+model = torch.hub.load(f'{current_dir}/yolov5', 'custom', path=f'{current_dir}/model/model.pt', source='local', force_reload=True, autoshape=True)
 DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
 
 @app.route("/", methods=["GET", "POST"])
