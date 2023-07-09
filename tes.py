@@ -1,10 +1,16 @@
-import argparse, datetime, io, torch
+from flask import Flask, jsonify
+import os
+import argparse
+import datetime
+import io
+import torch
 from PIL import Image
 from flask import Flask, render_template, request, redirect
 
-app = Flask(__name__)
+app = Flask(_name_)
 
 DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
+model = None
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -20,7 +26,7 @@ def home():
         img = Image.open(io.BytesIO(img_bytes))
         results = model([img])
 
-        results.render()  # updates results.imgs with boxes and labels
+        results.render()
         now_time = datetime.datetime.now().strftime(DATETIME_FORMAT)
         img_savename = f"static/{now_time}.png"
         Image.fromarray(results.ims[0]).save(img_savename)
@@ -38,9 +44,9 @@ def predict():
         image_file = request.files["image"]
         image_bytes = image_file.read()
         img = Image.open(io.BytesIO(image_bytes))
-        results = model(img, size=640) # reduce size=320 for faster inference
+        results = model(img, size=640)
 
-        results.render()  # updates results.imgs with boxes and labels
+        results.render()
         now_time = datetime.datetime.now().strftime(DATETIME_FORMAT)
         img_savename = f"static/{now_time}.png"
         Image.fromarray(results.ims[0]).save(img_savename)
@@ -50,10 +56,11 @@ def predict():
         hasil.insert(0, gambar)
         return hasil
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
     parser.add_argument("--port", default=5000, type=int, help="port number")
     args = parser.parse_args()
-    model = torch.hub.load('yolov5', 'custom', path='model/model.pt', source='local', force_reload=True, autoshape=True)
+    model = torch.hub.load('yolov5', 'custom', path='model.pt', source='local')
+
     model.eval()
-    app.run(port=args.port)  # debug=True causes Restarting with stat
+    app.run(port=args.port)
