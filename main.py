@@ -3,7 +3,7 @@ from PIL import Image
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
-
+model = torch.hub.load('WasteTrack-YOLO-API/yolov5', 'custom', path='WasteTrack-YOLO-API/model/model.pt', source='local', force_reload=True, autoshape=True)
 DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
 
 @app.route("/", methods=["GET", "POST"])
@@ -54,6 +54,4 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
     parser.add_argument("--port", default=5000, type=int, help="port number")
     args = parser.parse_args()
-    model = torch.hub.load('yolov5', 'custom', path='model/model.pt', source='local', force_reload=True, autoshape=True)
-    model.eval()
     app.run(port=args.port)  # debug=True causes Restarting with stat
