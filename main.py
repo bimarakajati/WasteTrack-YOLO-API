@@ -4,7 +4,11 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 current_dir = os.getcwd()
-model = torch.hub.load(f'{current_dir}/yolov5', 'custom', path=f'{current_dir}/model/model.pt', source='local', force_reload=True, autoshape=True)
+yolo_dir = f'{current_dir}/yolov5'
+print(yolo_dir)
+model_dir = f'{current_dir}/model/model.pt'
+print(model_dir)
+model = torch.hub.load(yolo_dir, 'custom', path=model_dir, source='local', force_reload=True, autoshape=True)
 DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
 
 @app.route("/", methods=["GET", "POST"])
