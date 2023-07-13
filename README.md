@@ -39,7 +39,7 @@ This is a simple waste classification project that utilizes the YOLO (You Only L
 
 ## ✨ Author
 
-|         Nama         |      NIM       |  Job Desk  |
+|         Name         |      NIM       |  Job Desk  |
 | -------------------- | -------------- |------------|
 | Rizky Okka Syahputra | A11.2020.13067 | Anorganik  |
 | Fajarudin Zakariya   | A11.2020.12483 | Organik    |
