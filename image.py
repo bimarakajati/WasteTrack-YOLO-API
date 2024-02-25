@@ -20,10 +20,13 @@ try:
         json_response = response.json()
 
         # Process the response as needed
-        # ...
+        names = [item['name'] for item in json_response if 'name' in item]
+        accuracy = [item['confidence'] for item in json_response if 'confidence' in item]
 
         # Print the response
         print(json_response)
+        print(names)
+        print(accuracy)
     else:
         print('Request failed with status code:', response.status_code)
 
