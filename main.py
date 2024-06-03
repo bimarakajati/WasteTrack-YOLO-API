@@ -1,4 +1,4 @@
-import argparse, datetime, io, torch
+import datetime, io, torch
 from PIL import Image
 from flask import Flask, render_template, request, redirect
 
@@ -51,8 +51,5 @@ def predict():
         return hasil
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Flask app exposing yolov5 models")
-    parser.add_argument("--port", default=5000, type=int, help="port number")
-    args = parser.parse_args()
     model = torch.hub.load('yolov5', 'custom', path='model/model.pt', source='local')
-    app.run(host='0.0.0.0', port=args.port)
+    app.run(host='0.0.0.0', port=5000)

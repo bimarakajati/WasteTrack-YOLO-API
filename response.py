@@ -5,7 +5,7 @@ api_endpoint = 'http://dm.dinus.ac.id:6003/detection'
 # api_endpoint = 'http://localhost:5000/detection'
 
 # Load the image file
-image_file = 'test/gabung.jpg'
+image_file = 'image.jpg'
 
 try:
     # Create a dictionary with the image file
@@ -25,8 +25,6 @@ try:
 
         # Print the response
         print(json_response)
-        print(names)
-        print(accuracy)
     else:
         print('Request failed with status code:', response.status_code)
 
